@@ -3,37 +3,34 @@ import { Shirt, Ruler, Truck } from 'lucide-react';
 
 const Features: React.FC = () => {
   return (
-    <section id="about" className="py-24 bg-zinc-950 border-t border-zinc-900">
+    <section id="about" className="py-32 bg-zinc-950 border-t border-zinc-900">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          <div className="space-y-4">
-            <div className="w-12 h-12 bg-zinc-900 flex items-center justify-center rounded-sm">
-              <Shirt className="w-6 h-6 text-white" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
+          <div className="space-y-6 group">
+            <div className="w-14 h-14 bg-zinc-900 border border-zinc-800 flex items-center justify-center rounded-none group-hover:bg-white group-hover:border-white transition-all duration-500 group-hover:-translate-y-2">
+              <Shirt className="w-6 h-6 text-white group-hover:text-black transition-colors" />
             </div>
-            <h3 className="text-xl font-bold text-white">Ethically Sourced</h3>
-            <p className="text-zinc-400 font-light leading-relaxed">
-              We partner with factories that prioritize fair wages and safe working environments. 
-              100% organic cotton grown without harmful chemicals.
+            <h3 className="text-xs font-black uppercase tracking-[0.3em] text-white">450GSM Organic</h3>
+            <p className="text-zinc-500 text-sm font-light leading-relaxed max-w-xs">
+              Sourced from sustainable farms. Our cotton is twice the weight of standard tees, providing a structured drape that lasts years.
             </p>
           </div>
-          <div className="space-y-4">
-            <div className="w-12 h-12 bg-zinc-900 flex items-center justify-center rounded-sm">
-              <Ruler className="w-6 h-6 text-white" />
+          <div className="space-y-6 group">
+            <div className="w-14 h-14 bg-zinc-900 border border-zinc-800 flex items-center justify-center rounded-none group-hover:bg-white group-hover:border-white transition-all duration-500 group-hover:-translate-y-2">
+              <Ruler className="w-6 h-6 text-white group-hover:text-black transition-colors" />
             </div>
-            <h3 className="text-xl font-bold text-white">Perfect Fit</h3>
-            <p className="text-zinc-400 font-light leading-relaxed">
-              Countless iterations to achieve the ideal boxy, relaxed silhouette. 
-              Pre-shrunk to ensure the fit stays consistent wash after wash.
+            <h3 className="text-xs font-black uppercase tracking-[0.3em] text-white">The Master Cut</h3>
+            <p className="text-zinc-500 text-sm font-light leading-relaxed max-w-xs">
+              Every seam is reinforced with double-needle stitching. Pre-shrunk via industrial enzyme washing to guarantee fit integrity.
             </p>
           </div>
-          <div className="space-y-4">
-            <div className="w-12 h-12 bg-zinc-900 flex items-center justify-center rounded-sm">
-              <Truck className="w-6 h-6 text-white" />
+          <div className="space-y-6 group">
+            <div className="w-14 h-14 bg-zinc-900 border border-zinc-800 flex items-center justify-center rounded-none group-hover:bg-white group-hover:border-white transition-all duration-500 group-hover:-translate-y-2">
+              <Truck className="w-6 h-6 text-white group-hover:text-black transition-colors" />
             </div>
-            <h3 className="text-xl font-bold text-white">Global Shipping</h3>
-            <p className="text-zinc-400 font-light leading-relaxed">
-              Free worldwide shipping on all orders over $150. 
-              Sustainable, plastic-free packaging that looks good and does good.
+            <h3 className="text-xs font-black uppercase tracking-[0.3em] text-white">Express Global</h3>
+            <p className="text-zinc-500 text-sm font-light leading-relaxed max-w-xs">
+              Wrapped in recycled heavy-gauge card. Shipped via carbon-neutral logistics to 190+ countries within 3-5 business days.
             </p>
           </div>
         </div>

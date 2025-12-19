@@ -1,5 +1,5 @@
-import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowRight, Plus } from 'lucide-react';
 
 interface Product {
   id: number;
@@ -12,78 +12,102 @@ interface Product {
 const products: Product[] = [
   {
     id: 1,
-    name: "Heavyweight Boxy Tee",
-    price: "$45.00",
-    image: "https://picsum.photos/id/1060/800/1000",
-    color: "Off-Black"
+    name: "Heavyweight Boxy",
+    price: "$65.00",
+    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=800&auto=format&fit=crop",
+    color: "Jet Black"
   },
   {
     id: 2,
-    name: "Oversized Basic",
-    price: "$38.00",
-    image: "https://picsum.photos/id/117/800/1000",
-    color: "Cloud Gray"
+    name: "Architect Tee",
+    price: "$58.00",
+    image: "https://images.unsplash.com/photo-1562157873-818bc0726f68?q=80&w=800&auto=format&fit=crop",
+    color: "Asphalt"
   },
   {
     id: 3,
-    name: "Structured Mock Neck",
-    price: "$52.00",
-    image: "https://picsum.photos/id/1059/800/1000",
+    name: "Studio Crew",
+    price: "$72.00",
+    image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=800&auto=format&fit=crop",
     color: "Charcoal"
   },
   {
     id: 4,
-    name: "Vintage Wash Crew",
-    price: "$42.00",
-    image: "https://picsum.photos/id/103/800/1000",
+    name: "Raw Canvas",
+    price: "$62.00",
+    image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=800&auto=format&fit=crop",
     color: "Bone"
   }
 ];
 
 const FeaturedCollection: React.FC = () => {
+  const [addingId, setAddingId] = useState<number | null>(null);
+
+  const handleAddToCart = (id: number) => {
+    setAddingId(id);
+    
+    // Update logic
+    const currentCount = parseInt(localStorage.getItem('noir_cart_count') || '0');
+    localStorage.setItem('noir_cart_count', (currentCount + 1).toString());
+    
+    // Dispatch event for Navbar
+    window.dispatchEvent(new Event('noir_cart_updated'));
+
+    setTimeout(() => {
+      setAddingId(null);
+    }, 800);
+  };
+
   return (
-    <section id="collection" className="py-24 bg-black border-t border-zinc-900">
+    <section id="collection" className="py-32 bg-black border-t border-zinc-900">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex justify-between items-end mb-16">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4">Latest Drop</h2>
-            <p className="text-zinc-400">Engineered for everyday longevity.</p>
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-6">
+          <div className="space-y-4">
+            <h2 className="text-4xl font-black tracking-tight uppercase leading-none">The Permanent<br/>Collection</h2>
+            <div className="h-1 w-20 bg-white"></div>
           </div>
-          <a href="#" className="hidden md:flex items-center text-sm font-medium text-white hover:text-zinc-300 group">
-            View All 
-            <ArrowRight className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
-          </a>
+          <p className="max-w-xs text-zinc-500 text-sm font-light leading-relaxed">
+            Season-less essentials crafted with precision. Our most requested silhouettes, restocked in limited quantities.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
           {products.map((product) => (
-            <div key={product.id} className="group cursor-pointer">
-              <div className="relative aspect-[4/5] overflow-hidden bg-zinc-900 mb-4">
+            <div key={product.id} className="group flex flex-col">
+              <div className="relative aspect-[3/4] overflow-hidden bg-zinc-900 transition-all duration-700">
                 <img 
                   src={product.image} 
                   alt={product.name} 
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-in-out opacity-80 group-hover:opacity-100"
+                  className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-1000 scale-[1.02] group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
-                <button className="absolute bottom-4 right-4 bg-white text-black px-4 py-2 text-sm font-medium opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                  Add to Cart
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors" />
+                
+                <button 
+                  onClick={() => handleAddToCart(product.id)}
+                  className={`absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-[2px] ${addingId === product.id ? 'bg-white/90 text-black opacity-100' : 'bg-black/40 text-white'}`}
+                >
+                  <div className={`flex items-center space-x-2 px-6 py-3 border border-white/20 uppercase text-[10px] font-bold tracking-[0.2em] ${addingId === product.id ? 'border-black' : ''}`}>
+                    {addingId === product.id ? (
+                      <span className="animate-pulse">Added to Cart</span>
+                    ) : (
+                      <>
+                        <Plus className="w-3 h-3" />
+                        <span>Quick Add</span>
+                      </>
+                    )}
+                  </div>
                 </button>
               </div>
-              <div className="flex justify-between items-start">
-                <div>
-                  <h3 className="text-lg font-medium text-white group-hover:text-zinc-300 transition-colors">{product.name}</h3>
-                  <p className="text-sm text-zinc-500">{product.color}</p>
+              
+              <div className="mt-6 flex flex-col space-y-2">
+                <div className="flex justify-between items-baseline">
+                  <h3 className="text-xs font-bold uppercase tracking-widest text-zinc-300 group-hover:text-white transition-colors">{product.name}</h3>
+                  <span className="text-sm font-light text-zinc-500">{product.price}</span>
                 </div>
-                <span className="text-lg font-light text-white">{product.price}</span>
+                <p className="text-[10px] uppercase tracking-[0.3em] text-zinc-600 font-bold">{product.color}</p>
               </div>
             </div>
           ))}
-        </div>
-        
-        <div className="mt-12 md:hidden text-center">
-          <a href="#" className="inline-flex items-center text-sm font-medium text-white border-b border-white pb-1">
-            View All Products
-          </a>
         </div>
       </div>
     </section>
